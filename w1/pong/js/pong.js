@@ -8,6 +8,7 @@ var timer = setInterval(main, 1000/60)
 //global friction variable
 var fy = .99
 
+var particles = [];
 
 //p1 setup
 var p1 = new Box();
@@ -25,8 +26,8 @@ p2.x = c.width - p2.w/2
 var ball = new Box();
 ball.w = 20
 ball.h = 20
-ball.vx = -5
-ball.vy = -5
+ball.vx = -7
+ball.vy = -7
 ball.color = `white`
 
 function generateParticles(x, y, count) {
@@ -36,12 +37,16 @@ function generateParticles(x, y, count) {
 }
 
 
+
+
 function main()
 {
     //erases the canvas
     ctx.clearRect(0,0,c.width,c.height)
 
     
+    
+
     //p1 accelerates when key is pressed 
     if(keys[`w`])
     {
@@ -73,24 +78,25 @@ function main()
     ball.move()
 
     //p1 collision with top and bottom of the wall
-    if(p1.y < 0+p1.h/2)
-    {
-        p1.y = 0+p1.h/2
+    if(p1.y < 0 + p1.h/2) {
+        p1.y = 0 + p1.h/2;
+        p1.vy = 0; // Set vertical velocity to 0
     }
-    if(p1.y > c.height-p1.h/2)
-    {
-        p1.y = c.height-p1.h/2
-    }
-    //p2 collision with top and bottom of the wall
-    if(p2.y < 0+p2.h/2)
-    {
-        p2.y = 0+p2.h/2
-    }
-    if(p2.y > c.height-p2.h/2)
-    {
-        p2.y = c.height-p2.h/2
+    if(p1.y > c.height - p1.h/2) {
+        p1.y = c.height - p1.h/2;
+        p1.vy = 0; // Set vertical velocity to 0
     }
 
+    //p2 collision with top and bottom of the wall
+    if(p2.y < 0 + p2.h/2) {
+        p2.y = 0 + p2.h/2;
+        p2.vy = 0; // Set vertical velocity to 0
+    }
+    if(p2.y > c.height - p2.h/2) {
+        p2.y = c.height - p2.h/2;
+        p2.vy = 0; // Set vertical velocity to 0
+    }
+    
     //ball collision 
     if(ball.x < 0)
     {
