@@ -8,6 +8,7 @@ var timer = setInterval(main, 1000/60)
 //global friction variable
 var fy = .99
 
+
 //p1 setup
 var p1 = new Box();
 p1.w = 20
@@ -28,10 +29,18 @@ ball.vx = -5
 ball.vy = -5
 ball.color = `white`
 
+function generateParticles(x, y, count) {
+    for (let i = 0; i < count; i++) {
+        particles.push(new Particle(x, y));
+    }
+}
+
+
 function main()
 {
     //erases the canvas
     ctx.clearRect(0,0,c.width,c.height)
+
     
     //p1 accelerates when key is pressed 
     if(keys[`w`])
@@ -111,6 +120,8 @@ function main()
     {
         ball.x = p1.x + p1.w/2 + ball.w/2
         ball.vx = -ball.vx;
+        generateParticles(ball.x, ball.y, 10); // Generate 10 particles at the collision point
+        
     }
 
     //p2 with ball collision
@@ -118,7 +129,14 @@ function main()
     {
         ball.x = p2.x - p2.w/2 - ball.w/2
         ball.vx = -ball.vx;
+        generateParticles(ball.x, ball.y, 10); // Generate 10 particles at the collision point
     }
+
+    particles = particles.filter(p => p.life > 0); // Remove dead particles
+    particles.forEach(p => {
+        p.move();
+        p.draw(ctx); // Ensure ctx is passed here
+    });
 
     //draw the objects
     p1.draw()
