@@ -8,6 +8,7 @@ var timer = setInterval(main, 1000/60)
 //global friction variable
 var fy = .99
 
+//particles array
 var particles = [];
 
 //p1 setup
@@ -36,6 +37,16 @@ function generateParticles(x, y, count) {
     }
 }
 
+//Player array
+var Players = []
+
+//creates two players
+Players(0) = new Player()
+Players(1) = new Player()
+
+//sets the pad properties to box
+Players(0).pad = new Box()
+Players(1).pad = new Box()
 
 
 
