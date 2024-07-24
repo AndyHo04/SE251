@@ -49,6 +49,9 @@ pad[1].w = 20
 pad[1].h = 100
 pad[1].x = c.width - pad[1].w/2
 
+//define pad score
+pad[0].score = 0
+pad[1].score = 0
 function main()
 {
     //erases the canvas
@@ -109,11 +112,13 @@ function main()
     {
         ball.x = c.width/2
         ball.y  =c.height/2
+        pad[0].score += 1
     }
     if(ball.x > c.width)
     {
         ball.x = c.width/2
         ball.y = c.height/2
+        pad[1].score += 1
     }
     if(ball.y < 0)
     {
@@ -153,4 +158,5 @@ function main()
     pad[0].draw()
     pad[1].draw()
     ball.draw()
+    console.log(pad[1].score + " | " + pad[0].score)
 }
