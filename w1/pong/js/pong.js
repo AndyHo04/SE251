@@ -41,12 +41,12 @@ function generateParticles(x, y, count) {
 var Players = []
 
 //creates two players
-Players(0) = new Player()
-Players(1) = new Player()
+Players[0] = new Player()
+Players[1] = new Player()
 
 //sets the pad properties to box
-Players(0).pad = new Box()
-Players(1).pad = new Box()
+Players[0].pad = new Box()
+Players[1].pad = new Box()
 
 
 
