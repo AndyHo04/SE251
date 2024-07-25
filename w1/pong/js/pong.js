@@ -49,8 +49,8 @@ pad[1].h = 100
 pad[1].x = c.width - pad[1].w/2
 
 //define pad score
-pad[0].score = 0
 pad[1].score = 0
+pad[0].score = 0
 //get the divs inside the score section to display the score
 var score = document.querySelectorAll(`#score div`)
 
@@ -59,16 +59,7 @@ function main()
     //erases the canvas
     ctx.clearRect(0,0,c.width,c.height)
 
-    /*
-    // Set properties for the score text
-    ctx.font = '50px Arial';
-    ctx.fillStyle = 'white';
-    ctx.textAlign = 'center'; 
 
-    // Display the scores on the canvas
-    ctx.fillText("Player 1: " + pad[1].score, c.width * 0.25, 50); // Position for Player 1's score
-    ctx.fillText("Player 2: " + pad[0].score, c.width * 0.75, 50); // Position for Player 2's score
-    */
     //pad[0] accelerates when key is pressed 
     if(keys[`w`])
     {
@@ -124,13 +115,13 @@ function main()
     {
         ball.x = c.width/2
         ball.y  =c.height/2
-        pad[0].score += 1
+        pad[1].score += 1
     }
     if(ball.x > c.width)
     {
         ball.x = c.width/2
         ball.y = c.height/2
-        pad[1].score += 1
+        pad[0].score += 1
     }
     if(ball.y < 0)
     {
@@ -169,11 +160,11 @@ function main()
     //display the scoreboard
     for (let i = 0; i < score.length; i++)
     {
-        score[i].innerText = pad[i].score
+        score[i].innerHTML = "Player " + (i + 1) + ":" + pad[i].score;
     }
     //draw the objects
     pad[0].draw()
     pad[1].draw()
     ball.draw()
-    console.log(pad[1].score + " | " + pad[0].score)
+    console.log(pad[0].score + " | " + pad[1].score)
 }
