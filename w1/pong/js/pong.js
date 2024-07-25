@@ -28,6 +28,21 @@ var particles = [];
 //Player array
 var player = []
 
+//keys array
+var keys = ["w", "s" , "ArrowUp", "ArrowDown"] 
+
+// key state object
+var keyState = {};
+
+// event listeners for key presses and releases
+document.addEventListener('keydown', function(e) {
+    keyState[e.key] = true;
+});
+
+document.addEventListener('keyup', function(e) {
+    keyState[e.key] = false;
+});
+
 //pad array
 var pad = []
 
@@ -59,112 +74,88 @@ function main()
     //erases the canvas
     ctx.clearRect(0,0,c.width,c.height)
 
-
-    //pad[0] accelerates when key is pressed 
-    if(keys[`w`])
-    {
-        pad[0].vy += -pad[0].force
-    }
-
-    if(keys[`s`])
-    {
-        pad[0].vy += pad[0].force
-    }
-    //pad[1] accelerates when key is pressed
-    if(keys[`ArrowUp`])
-    {
-        pad[1].vy += -pad[1].force
-    }
-
-    if(keys[`ArrowDown`])
-    {
-        pad[1].vy += pad[1].force
-    }
-    //applies friction
-    pad[0].vy *= fy
-    pad[1].vy *= fy
-    //player movement
-    pad[0].move();
-    pad[1].move();
-
-    //ball movement
-    ball.move()
-
-    //pad[0] collision with top and bottom of the wall
-    if(pad[0].y < 0 + pad[0].h/2) {
-        pad[0].y = 0 + pad[0].h/2;
-        pad[0].vy = 0; // Set vertical velocity to 0
-    }
-    if(pad[0].y > c.height - pad[0].h/2) {
-        pad[0].y = c.height - pad[0].h/2;
-        pad[0].vy = 0; // Set vertical velocity to 0
-    }
-
-    //pad[1] collision with top and bottom of the wall
-    if(pad[1].y < 0 + pad[1].h/2) {
-        pad[1].y = 0 + pad[1].h/2;
-        pad[1].vy = 0; // Set vertical velocity to 0
-    }
-    if(pad[1].y > c.height - pad[1].h/2) {
-        pad[1].y = c.height - pad[1].h/2;
-        pad[1].vy = 0; // Set vertical velocity to 0
-    }
-
-    //ball collision 
-    if(ball.x < 0)
-    {
-        ball.x = c.width/2
-        ball.y  =c.height/2
-        pad[1].score += 1
-    }
-    if(ball.x > c.width)
-    {
-        ball.x = c.width/2
-        ball.y = c.height/2
-        pad[0].score += 1
-    }
-    if(ball.y < 0)
-    {
-        ball.y = 0
-        ball.vy = -ball.vy
-    }
-    if(ball.y > c.height)
-    {
-        ball.y = c.height
-        ball.vy = -ball.vy
-    
-    }
-
-    //pad[0] with ball collision
-    if(ball.collide(pad[0]))
-    {
-        ball.x = pad[0].x + pad[0].w/2 + ball.w/2
-        ball.vx = -ball.vx;
-        generateParticles(ball.x, ball.y, 10); // Generate 10 particles at the collision point
-        
-    }
-
-    //pad[1] with ball collision
-    if(ball.collide(pad[1]))
-    {
-        ball.x = pad[1].x - pad[1].w/2 - ball.w/2
-        ball.vx = -ball.vx;
-        generateParticles(ball.x, ball.y, 10); // Generate 10 particles at the collision point
-    }
-
-    particles = particles.filter(p => p.life > 0); // Remove dead particles
-    particles.forEach(p => {
-        p.move();
-        p.draw(ctx); // Ensure ctx is passed here
-    });
     //display the scoreboard
     for (let i = 0; i < score.length; i++)
     {
         score[i].innerHTML = "Player " + (i + 1) + ":" + pad[i].score;
     }
-    //draw the objects
-    pad[0].draw()
-    pad[1].draw()
-    ball.draw()
-    console.log(pad[0].score + " | " + pad[1].score)
+    //for loop for key presses
+    for (let i = 0; i < keys.length; i++) {
+        if (keyState[keys[i]]) {//if the key is pressed down
+            if (i % 2 === 0) {//if i is even(0("w"), 2("ArrowUp")), pad that is accessed moves up in game
+                pad[Math.floor(i / 2)].vy += -pad[Math.floor(i / 2)].force;
+            } else {//if i is odd (1("s"), 3("ArrowDown")), pad that is accessed moves down in game
+                pad[Math.floor(i / 2)].vy += pad[Math.floor(i / 2)].force;
+            }
+        }
+    }
+    //for loop for friction and movement
+    for (let i = 0; i < pad.length; i++)
+    {
+        //applies friction
+        pad[i].vy *= fy
+        //player movement
+        pad[i].move();
+    }
+    //ball movement
+    ball.move()
+
+    //for loop for pads collision with top and bottom of wall as well as ball collision
+    for (let i = 0; i < pad.length; i++)
+    {
+        if(pad[i].y < 0 + pad[i].h/2) {
+            pad[i].y = 0 + pad[i].h/2;
+            pad[i].vy = 0; // Set vertical velocity to 0
+        }
+        if(pad[i].y > c.height - pad[i].h/2) {
+            pad[i].y = c.height - pad[i].h/2;
+            pad[i].vy = 0; // Set vertical velocity to 0
+        }
+        //ball collision 
+        if(ball.x < 0)
+            {
+                ball.x = c.width/2
+                ball.y  =c.height/2
+                pad[1].score += 1
+            }
+            if(ball.x > c.width)
+            {
+                ball.x = c.width/2
+                ball.y = c.height/2
+                pad[0].score += 1
+            }
+            if(ball.y < 0)
+            {
+                ball.y = 0
+                ball.vy = -ball.vy
+            }
+            if(ball.y > c.height)
+            {
+                ball.y = c.height
+                ball.vy = -ball.vy
+            }
+    }
+    for (let i = 0; i < pad.length; i++) {
+        if (ball.collide(pad[i])) {
+            if (i === 0) {
+                ball.x = pad[i].x + pad[i].w / 2 + ball.w / 2;
+            } else {
+                ball.x = pad[i].x - pad[i].w / 2 - ball.w / 2;
+            }
+            ball.vx = -ball.vx;
+            generateParticles(ball.x, ball.y, 10); // Generate 10 particles at the collision point
+        }
+        particles = particles.filter(p => p.life > 0); // Remove dead particles
+        particles.forEach(p => {
+        p.move();
+        p.draw(ctx); // Ensure ctx is passed here
+        });
+    }
+    //for loop to draw the objects
+    for (let i = 0; i < pad.length; i++)
+    {
+        pad[i].draw()
+        ball.draw()
+        console.log(pad[0].score + " | " + pad[1].score)
+    }
 }
