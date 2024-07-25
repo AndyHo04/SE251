@@ -40,7 +40,6 @@ pad[0] = player[0].pad = new Box()
 pad[1] = player[1].pad = new Box()
 
 
-
 //set the pads width and height
 pad[0].w = 20
 pad[0].h = 100
@@ -52,11 +51,24 @@ pad[1].x = c.width - pad[1].w/2
 //define pad score
 pad[0].score = 0
 pad[1].score = 0
+//get the divs inside the score section to display the score
+var score = document.querySelectorAll(`#score div`)
+
 function main()
 {
     //erases the canvas
     ctx.clearRect(0,0,c.width,c.height)
 
+    /*
+    // Set properties for the score text
+    ctx.font = '50px Arial';
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center'; 
+
+    // Display the scores on the canvas
+    ctx.fillText("Player 1: " + pad[1].score, c.width * 0.25, 50); // Position for Player 1's score
+    ctx.fillText("Player 2: " + pad[0].score, c.width * 0.75, 50); // Position for Player 2's score
+    */
     //pad[0] accelerates when key is pressed 
     if(keys[`w`])
     {
@@ -154,6 +166,11 @@ function main()
         p.move();
         p.draw(ctx); // Ensure ctx is passed here
     });
+    //display the scoreboard
+    for (let i = 0; i < score.length; i++)
+    {
+        score[i].innerText = pad[i].score
+    }
     //draw the objects
     pad[0].draw()
     pad[1].draw()
