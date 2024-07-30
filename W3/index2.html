@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms</title>
+</head>
+<body>
+    <a href="https://www.google.com">Google</a>
+    <form action="#" method="GET">
+        <input type="text" placeholder="name" value="Andy" name="name">
+        <input type="submit" value="submit">
+        <button>Do something</button>
+    </form>
+    <script>
+      //if you click on the link, it will take you to the NEIT website instead. This was just Jay showing us
+       var a = document.querySelector('a');
+       a.addEventListener('click', (e) => {
+           e.preventDefault();
+           window.location = 'https://www.neit.edu';
+       });
+
+       var input = document.querySelector('input');
+       //if you click in the input box(focus), it will change the background color to yellow. If you click out of the input box(blur), it will change the background color back to white
+       input.addEventListener('focus', (e) => {
+           e.target.style.backgroundColor = 'yellow';
+       });
+
+       input.addEventListener('blur', (e) => {
+           e.target.style.backgroundColor = 'white';
+       });
+       //if you change the value in the input box and click out, it will change the value to "Mr.T"
+       input.addEventListener('change', (e) => {
+          e.target.value = `Mr.T`
+       });
+       //when you click anything in the input box, it will always add "Mr.T" to the end of the value
+       input.addEventListener('input', (e) => {
+           e.target.value += `Mr.T`
+       });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Event Listners</title>
+</head>
+<body>
+    <p onclick="changeToRed()">Words</p>
+    <p>Words</p>
+    <script>
+        let p = document.querySelector('p');
+        //Event Handlers
+        function changeToRed(color) {
+           //let p = document.querySelector('p');//can be put here or outside if you want it to be global
+           p.style.color = 'red';//when clicked, the text will change to red
+        }
+        p.onmouseover = function() {
+            this.style.fontWeight = 'bold';//when hovered over, the text will change to blue
+        }
+
+        p.onmouseout = (e)=> {// => alwayrs refers to the root element(windows object) and if there is only one parameter, you can remove the parentheses. If there are no parameters, use empty parentheses. If the function body contains a single expression, curly braces can be omitted, and the expression's value is implicitly returned. Arrow functions do not have their own "this" context; they inherit "this" from the parent scope at the time they are defined. This is different from regular functions, which have their own "this" context.Arrow functions do not have their own arguments object. Use rest parameters (...args) if you need to access arguments. E is only a placeholder for the event object. You can name it anything you want (ex. poop, superman, etc.)
+        
+            e.target.style.fontWeight = 'normal';//when not hovered over, the text will change to normal
+        }
+
+        //p.onmouseout = e => e.target.style.fontWeight = 'normal';//another way to write the below code if you are only doing one thing
+
+        //Jay would not do events any of these ways unless he is trying to do tricky stuff. These are just ways that you will see in other places.
+
+        var add = (a,b) => a + b;
+
+        var sum = add(5,5);
+        p.innerHTML = sum;
+
+        //Adding an event listeners
+        /*
+        p.addEventListener(`click`, scrollHandler);
+        function scrollHandler(e) {
+            add(5,5);
+        }
+        */
+        //This is one way, Jay doesn't really like this way
+
+        /*
+        p.addEventListener(`click`, function(e) {
+            add(5,5);
+        });//This is another way,
+        */
+        
+        /*
+        for (let i = 0; i < p.length; i++){
+            p[i].addEventListener(`click`, (e) {
+            e.target.innerText = add(Number(e.target.innerText), Number(e.target.innerText));
+            e.target.removeEventListener(`click`, change);
+            });
+        }
+        */
+
+        
+        p.addEventListener(`click`, e => {
+            e.target.innerText = add(Number(e.target.innerText), Number(e.target.innerText));
+        });//This is the way you'll most likely see people do it in the future
+        
+        /*
+        for(let i = 0; i < p.length; i++){
+            p[i].addEventListener(`click`, change);
+        }
+
+        function change(e) {
+           e.target.innerText = add(Number(e.target.innerText), Number(e.target.innerText));
+           e.target.removeEventListener(`click`, change);
+        }
+        */
+            
+        
+        
+        
+    </script>
+    
+</body>
+</html>

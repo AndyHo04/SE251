@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Back Function</title>
+</head>
+<body>
+    <p>Another paragraph</p>
+    <script>
+        // Callback function
+        var p = document.querySelector('p'); // Select the paragraph element
+        // This function will change the text of the paragraph element 
+        // and then call the output function to alert the new text
+        function changeWord(newWord = 'Hello', output = function(a) { return a; }) {
+            p.innerText = newWord; // default value is 'Hello'
+            output(p.innerText);
+        }
+
+        changeWord("What's up", function(a) { alert(a); });
+            
+        
+    </script>
+</body>
+</html>
