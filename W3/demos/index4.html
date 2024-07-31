@@ -82,6 +82,16 @@
            return obj.a + obj.b;
         }
         alert(add({b:5, a:5}));//order does not matter
+        /*
+        function add(obj) {
+           let bob = {a:1, b:2};
+           for (i in obj){
+                bob[i] = obj[i];
+           }
+           return bob.a + bob.b;
+        }
+        alert(add({b:5}));//order does not matter
+        */
         
     </script>
 </body>
