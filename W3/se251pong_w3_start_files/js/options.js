@@ -34,6 +34,23 @@ fill.forEach((input, index) => {
         input.nextElementSibling.innerHTML = player[index].fill;
     });
 });
+var stroke = document.querySelectorAll(`.stroke`);
+stroke.forEach((input, index) => {
+    //set the input's value to the appropriate player's current stroke property
+    input.value = player[index].stroke;
+    //set the output div to display the player's stroke property
+    input.nextElementSibling.innerHTML = player[index].stroke;
+
+    //add an input event to the stroke input
+    input.addEventListener(`input`, e => {
+        //change the appropriate player's stroke property to equal the input's value
+        player[index].stroke = e.target.value;
+        //change the appropriate pad's stroke property to equal the player's stroke property
+        player[index].pad.stroke = player[index].stroke;
+        //set the output div to display the new stroke property
+        input.nextElementSibling.innerHTML = player[index].stroke;
+    });
+});
 
 /*---------
     Program the six key inputs to do the following:
@@ -66,4 +83,52 @@ up.forEach((input, index) => {
 
     });
 
+});
+
+var down = document.querySelectorAll(`.d`);
+down.forEach((input, index) => {
+    //set the in;put's value to the appropriate player's current keys d property
+    input.value = player[index].keys.d;
+    //focus event
+    input.addEventListener(`focus`, e => {
+        currentState = `pause`;
+    })
+    //blur event
+    input.addEventListener(`blur`, e => {
+        currentState = `game`;
+    })
+    //key down event
+    input.addEventListener(`keydown`, e => {
+        //make the input value equal the key that was pressed
+        input.value = e.key;
+        //set the player's d key to equal the new value of the input
+        player[index].keys.d = e.key;
+        //set the output div to display the new key
+        input.nextElementSibling.innerHTML = e.key;
+
+    });
+});
+
+var straight = document.querySelectorAll(`.s`);
+straight.forEach((input, index) => {
+    //set the input's value to the appropriate player's current keys s property
+    input.value = player[index].keys.s;
+    //focus event
+    input.addEventListener(`focus`, e => {
+        currentState = `pause`;
+    })
+    //blur event
+    input.addEventListener(`blur`, e => {
+        currentState = `game`;
+    })
+    //key down event
+    input.addEventListener(`keydown`, e => {
+        //make the input value equal the key that was pressed
+        input.value = e.key;
+        //set the player's s key to equal the new value of the input
+        player[index].keys.s = e.key;
+        //set the output div to display the new key
+        input.nextElementSibling.innerHTML = e.key;
+
+    });
 });
