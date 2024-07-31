@@ -132,3 +132,30 @@ straight.forEach((input, index) => {
 
     });
 });
+//Create the slider and number inputs
+var slider = Array.from(document.querySelectorAll('input[type="range"]'));
+var number = Array.from(document.querySelectorAll('input[type="number"]'));-
+slider.forEach((i,num) => {
+    i.value = ball.fill.num;
+    number[num].value = i.value;    
+    i.addEventListener('input', e => {
+        ball.fill = `rgb(${slider[0].value},${slider[1].value},${slider[2].value})`;
+        i.nextElementSibling.innerHTML = i.value;
+        number[num].value = i.value;
+    });
+});
+number.forEach((i,num) => {
+    i.addEventListener('input', e => {
+        slider[num].value = i.value;
+        ball.fill = `rgb(${slider[0].value},${slider[1].value},${slider[2].value})`;
+    });
+});
+/*
+slider.addEventListener('input', function() {
+    var value = slider.value;
+    ball.fill = `rgb(${value},${value},${value})`;
+    console.log(ball.fill); // For debugging purposes
+    // Update the ball's fill color in the DOM if necessary
+    // Example: document.querySelector('.ball').style.fill = ball.fill;
+});
+*/

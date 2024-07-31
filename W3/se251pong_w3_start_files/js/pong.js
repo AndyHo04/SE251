@@ -12,7 +12,10 @@ var sides = {
         bottom: c.height/2 + (c.height/2 * 1), 
         left: c.width/2 + (c.width/2 * -1)
     };
-var timer, ball, currentState;
+var timer, currentState;
+var ball = {
+    fill:`rgb(255,255,255)`,
+}
 var scoreBoard;
 var player = [
     new User().setProps({h:150,  force:1, fill:`#ffff00`}),
