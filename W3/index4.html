@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Form </title>
+</head>
+<body>
+    <form>
+        <input type="range" min="0" max="255" value="0"><input type="number">
+        <input type="range" min="0" max="255" value="0"><input type="number">
+        <input type="range" min="0" max="255" value="0"><input type="number">
+        <input type="color">
+        <input type="checkbox" name="colors" values="255" checked>
+        <input type="checkbox" name="colors" values="255">
+        <input type="checkbox" name="colors" values="255">
+        <select>
+            <option>red</option>
+            <option>green</option>
+            <option>blue</option>
+        </select>
+        <input type="button" value="button">
+        <button>This is also a button</button><!--you can style the heck with this button (ex.can make it a paragraph if you want)-->
+    </form>
+    <script>
+        var slider = Array.from(document.querySelectorAll('input[type="range"]'));//in order to use the forEach method, we need to convert the NodeList to an array
+        var number = Array.from(document.querySelectorAll('input[type="number"]'));
+        var picker = document.querySelector('input[type="color"]');
+        var check = Array.from(document.querySelectorAll('input[name="colors"]'));
+        var sel = document.querySelector('select');
+
+        sel.addEventListener('input', (e) => {
+            document.querySelector(`body`).style.backgroundColor = e.target.value;
+        });
+
+        check.forEach((i, num) => {//num is the index of the array
+           i.addEventListener('input', (e) => {
+                if(i.checked == false)
+                    i.value = 0;
+                else
+                    i.value = 255;
+                slider[num].value = i.value;
+                update(`body`);
+           });
+            
+        });
+
+         //document.querySelector(`body`).style.backgroundColor = `rgb(${slider[0].value}, ${slider[1].value}, ${slider[2].value})`
+         update();
+
+
+        picker.addEventListener('input', (e) => {
+            document.querySelector(`body`).style.backgroundColor = e.target.value;
+        });
+
+        slider.forEach((i, num) => {
+           i.addEventListener('input', (e) => {
+                number[num].value = i.value;
+                update(`body`);
+                //document.querySelector(`body`).style.backgroundColor = `rgb(${slider[0].value}, ${slider[1].value}, ${slider[2].value})`
+                //i.nextElementSibling.innerHTML = i.value; - another way of showing the value of the slider next to the slider
+           });
+            
+        });//Jay doesn't really do it this way, just wanted to show us, he regularly just does it with a regular for loop.
+
+        number.forEach((i, num) => {
+           i.addEventListener('input', (e) => {
+                slider[num].value = i.value;
+                update(`body`);
+           });
+            
+        });
+        
+        function update(tag = `body`)//makes it easier instead of writing the same code over and over again
+        {
+            document.querySelector(tag).style.backgroundColor = `rgb(${slider[0].value}, ${slider[1].value}, ${slider[2].value})`
+            //tag is the parameter that we pass in, so we can change the color of anything we want like body, h1, div etc.
+        }
+        
+    </script>
+</body>
+</html>
