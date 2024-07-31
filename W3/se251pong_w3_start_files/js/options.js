@@ -43,3 +43,22 @@ fill.forEach((input, index) => {
         .Change the player's key to the value of the input
         .Show the player's key in the output div 
 -----------*/
+var up = document.querySelectorAll(`.u`);
+up.forEach((input, index) => {
+    //set the input's value to the appropriate player's current keys u property
+    input.value = player[index].keys.u;
+    //key down event
+    input.addEventListener(`keydown`, e => {
+        //make the input value equal the key that was pressed
+        input.value = e.key;
+        //set the player's u key to equal the new value of the input
+        player[index].keys.u = e.key;
+        //set the output div to display the new key
+        input.nextElementSibling.innerHTML = e.key;
+        input.addEventListener(`focus`, e => {
+            currentState = `pause`;
+        })
+
+    });
+
+});
