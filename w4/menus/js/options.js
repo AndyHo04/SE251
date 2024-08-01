@@ -2,55 +2,6 @@
 var options = document.querySelector(`#options h2`);
 options.addEventListener(`click`, e =>document.querySelector(`.sides`).classList.toggle(`hidden`));
 
-var player_controls = document.querySelectorAll(`.op`);
-
-player_controls.forEach((player_control, i) => {
-
-    var color = Array.from(player_control.querySelectorAll(`.fill, .stroke`));
-    color.forEach((input, index) => {
-        input.value = player[i][index === 0 ? `fill` : `stroke`];
-        input.nextElementSibling.innerHTML = player[i][index === 0 ? `fill` : `stroke`];
-        input.addEventListener(`input`, e => {
-            player[i][index === 0 ? `fill` : `stroke`] = e.target.value;
-            player[i].pad[index === 0 ? `fill` : `stroke`] = e.target.value;
-            input.nextElementSibling.innerHTML = e.target.value;
-        });
-    });
-
-    var keys = Array.from(player_control.querySelectorAll(`.u, .d, .s`));
-    keys.forEach((key, j) => {
-        key.value = player[i].keys[j === 0 ? `u` : j === 1 ? `d` : `s`];
-        key.nextElementSibling.innerHTML = player[i].keys[j === 0 ? `u` : j === 1 ? `d` : `s`];
-        key.addEventListener(`keydown`, e => {
-            key.value = e.key;
-            player[i].keys[j === 0 ? `u` : j === 1 ? `d` : `s`] = e.key;
-            key.nextElementSibling.innerHTML = e.key;
-        });
-        key.addEventListener(`focus`, e => currentState = `pause`);
-        key.addEventListener(`blur`, e => currentState = `game`);
-    });
-});
-
-//Create the slider and number inputs
-var slider = Array.from(document.querySelectorAll('input[type="range"]'));
-var number = Array.from(document.querySelectorAll('input[type="number"]'));-
-slider.forEach((i,num) => {
-    i.value = ball.fill.num;
-    number[num].value = i.value;    
-    i.addEventListener('input', e => {
-        ball.fill = `rgb(${slider[0].value},${slider[1].value},${slider[2].value})`;
-        i.nextElementSibling.innerHTML = i.value;
-        number[num].value = i.value;
-    });
-});
-number.forEach((i,num) => {
-    i.addEventListener('input', e => {
-        slider[num].value = i.value;
-        ball.fill = `rgb(${slider[0].value},${slider[1].value},${slider[2].value})`;
-    });
-});
-//-------------OLD WAY OF DOING IT(BEFORE CHALLENGE)-----------------
-/*
 var fill = document.querySelectorAll(`.fill`);
 fill.forEach((input, index) => {
     // Set each input's value to equal the player's fill property
@@ -161,6 +112,57 @@ straight.forEach((input, index) => {
 
     });
 });
+
+//Create the slider and number inputs
+var slider = Array.from(document.querySelectorAll('input[type="range"]'));
+var number = Array.from(document.querySelectorAll('input[type="number"]'));-
+slider.forEach((i,num) => {
+    i.value = ball.fill.num;
+    number[num].value = i.value;    
+    i.addEventListener('input', e => {
+        ball.fill = `rgb(${slider[0].value},${slider[1].value},${slider[2].value})`;
+        i.nextElementSibling.innerHTML = i.value;
+        number[num].value = i.value;
+    });
+});
+number.forEach((i,num) => {
+    i.addEventListener('input', e => {
+        slider[num].value = i.value;
+        ball.fill = `rgb(${slider[0].value},${slider[1].value},${slider[2].value})`;
+    });
+});
+
+/*
+for (let i = 0; i < player.length; i++) {
+    var color = Array.from(document.querySelectorAll(`.fill, .stroke`));
+    var keys = Array.from(document.querySelectorAll(`.u, .d, .s`));
+   
+    color.forEach((input, index) => {
+        if (input) {
+            let property = index === 0 ? 'fill' : 'stroke';
+            input.value = player[i][property];
+            input.nextElementSibling.innerHTML = player[i][property];
+            input.addEventListener(`input`, e => {
+                player[i][property] = e.target.value;
+                player[i].pad[property] = e.target.value;
+                input.nextElementSibling.innerHTML = e.target.value;
+            });
+        }
+    });
+    keys.forEach((input, index) => {
+        if (input) {
+            let property = index === 0 ? 'u' : index === 1 ? 'd' : 's';
+            input.value = player[i].keys[property];
+            input.nextElementSibling.innerHTML = player[i].keys[property];
+            input.addEventListener(`keydown`, e => {
+                input.value = e.key;
+                player[i].keys[property] = e.key;
+                input.nextElementSibling.innerHTML = e.key;
+            });
+        }
+    });
+
+    console.log(color, keys);
+}
+
 */
-
-
