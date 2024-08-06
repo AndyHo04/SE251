@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>local storage</title>
+</head>
+<body>
+    <h1>My Page</h1>
+    <select>
+        <option>black</option>
+        <option>white</option>
+    </select>
+    <input type="color">
+    <button>Save</button>
+    <button>Clear</button>
+    <script>
+      
+        var bg = document.querySelector('select');
+        var body = document.querySelector('body');
+        var h1 = document.querySelector('h1');
+        var color = document.querySelector('input');
+        var buttons = document.querySelectorAll('button');
+
+        var settings = {
+            bg: 'white',
+            color: 'black',
+        }
+
+        if(typeof(Storage) !== "undefined") 
+        {
+            settings = JSON.parse(localStorage.settings);
+           
+            body.style.backgroundColor = settings.bg
+            h1.style.color = settings.color
+            bg.value = settings.bg
+            color.value = settings.color
+            
+        
+        }
+        else
+        {
+           
+        }
+        buttons[0].addEventListener('click', e => {  
+           settings.bg = bg.value
+           settings.color = color.value
+
+           body.style.backgroundColor = settings.bg
+           h1.style.color = settings.color
+           localStorage.setItem('settings', JSON.stringify(settings));//JSON is a way of formatting data so that it can be easily converted to a JavaScript object(from copilot).
+           console.log(settings)
+
+         
+        });
+        buttons[1].addEventListener('click', e => {
+            localStorage.clear();
+        });
+        
+    </script>
+</body>
+</html>
