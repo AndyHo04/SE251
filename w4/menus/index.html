@@ -45,7 +45,6 @@
 
         const startOptions = document.createElement(`div`);
         startOptions.setAttribute(`id`, `start-options`);
-        startOptions.style.opacity = `0`;
         startOptions.style.display = 'block';
         startOptions.style.width = `105px`;
         startOptions.style.height = `130px`;
@@ -85,7 +84,7 @@
             $(`#start`).animate({opacity: 0}, 2000, function(){
                 menus.removeChild(startMenu);
                 menus.appendChild(startOptions);
-                $(`#start-options`).animate({opacity: 1}, 2000);
+                $(`#start-options`).css({ opacity: 0 }).animate({opacity: 1}, 2000);
             });
         })
 
