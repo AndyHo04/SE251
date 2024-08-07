@@ -45,6 +45,27 @@
 
         const startOptions = document.createElement(`div`);
         startOptions.setAttribute(`id`, `start-options`);
+        startOptions.style.opacity = `0`;
+        startOptions.style.display = 'block';
+        startOptions.style.width = `105px`;
+        startOptions.style.height = `130px`;
+
+        const newGame = document.createElement(`button`);
+        newGame.appendChild(document.createTextNode(`New Game`));
+        newGame.classList.add('menu-button');
+        startOptions.appendChild(newGame);
+
+        const continueGame = document.createElement(`button`);
+        continueGame.appendChild(document.createTextNode(`Continue Game`));
+        continueGame.classList.add('menu-button');
+        continueGame.style.marginRight = `5px`;
+        startOptions.appendChild(continueGame);
+
+
+        const highScoresButton = document.createElement(`button`);
+        highScoresButton.appendChild(document.createTextNode(`High Scores`));
+        highScoresButton.classList.add('menu-button');
+        startOptions.appendChild(highScoresButton);
 
         const highScores = document.createElement(`div`);
         highScores.setAttribute(`id`, `high-scores`);
@@ -60,8 +81,10 @@
 
         startButton.addEventListener(`click`, (e)=>{
             console.log(`hi`)
-            $(`#start`).animate({opacity: 0}, 1000, function(){
-                window.location = `pong.html`
+            $(`#start`).animate({opacity: 0}, 2000, function(){
+                menus.removeChild(startMenu);
+                menus.appendChild(startOptions);
+                $(`#start-options`).animate({opacity: 1}, 2000);
             });
         })
 

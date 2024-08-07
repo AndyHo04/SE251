@@ -63,7 +63,15 @@
     /*border:1px solid pink;*/
     transform:translate(-50%,-50%);
 }
+#start-options {
+    display: block; /* Ensure the div expands to fit its content */
+}
 
+.menu-button{
+    margin: 12px 0 5px 10px;
+    display: flex;
+    justify-content: center;
+}
 
 
 
