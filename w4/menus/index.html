@@ -15,7 +15,7 @@
         <section class="blank"></section>
         <section id="content">
             <div id="menus">
-            <!-- This is what your final HMTL will look like.
+            <!--This is what the final HTML looks like
                 <div id="start-options">
                     <button data-load="false">New Game</button> NOTE: Will redirect to lobby.html and send load=false
                     <button data-load="true">Continue</button> NOTE: Will redirect to lobby.html and send load=true
@@ -52,11 +52,13 @@
 
         const newGame = document.createElement(`button`);
         newGame.appendChild(document.createTextNode(`New Game`));
+        newGame.dataset.load = `false`;
         newGame.classList.add('menu-button');
         startOptions.appendChild(newGame);
 
         const continueGame = document.createElement(`button`);
         continueGame.appendChild(document.createTextNode(`Continue Game`));
+        continueGame.dataset.load = `true`;
         continueGame.classList.add('menu-button');
         continueGame.style.marginRight = `5px`;
         startOptions.appendChild(continueGame);
@@ -98,6 +100,8 @@
         highScoresButton.addEventListener(`click`, (e)=>{
             window.location.href = `hs.html?load=${e.target.dataset.load}`;
         });
+
+        
 
     </script>
 </body>
