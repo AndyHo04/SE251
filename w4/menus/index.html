@@ -78,9 +78,8 @@
                 $(`#start`).animate({opacity: 1}, 2000);
             });
         }
-
+        
         startButton.addEventListener(`click`, (e)=>{
-            console.log(`hi`)
             $(`#start`).animate({opacity: 0}, 2000, function(){
                 menus.removeChild(startMenu);
                 menus.appendChild(startOptions);
