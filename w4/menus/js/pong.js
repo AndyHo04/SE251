@@ -35,7 +35,7 @@ function init()
     //pad 1 and 2
     o[0] = new Box().setProps(player[0]).setProps({x:10, dir:1});
     o[1] = new Box().setProps(player[1]).setProps({x:c.width-10, dir:-1});
-    o[1].type=1;
+
     
     //ball
     o[2] = new Box().setProps({w:20, h:20, vx:-2, vy:0, fill:`rgb(255,255,255)`});

@@ -48,3 +48,9 @@ canvas{
     grid-template-columns: auto auto auto;
     
 }
+
+.ball-color{
+    display:flex;
+    flex-direction: column;
+    width: 50%;
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display:flex;
+            background-color:black;
+            color:white;
+            font-family:calibri, sans-serif;
+            justify-content: center;
+        }
+        canvas
+        {
+            background-color: rgb(0, 0, 0);
+        }
+        main
+        {
+            width:1024px;
+            height:800px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Example 3 - Visual Feedback</h1>
+        <canvas width="1024" height="800"></canvas>
+    </main>
+    <script>
+       
+        class GameObject
+        {
+            constructor()
+            {
+                this.w = 100;
+                this.h = 100;
+                this.x = c.width/2;
+                this.y = c.height/2;
+                this.vx = 0;
+                this.vy = 0;
+                this.color = `red`;
+                this.canJump = false;
+                this.lives = true;
+                this.collide = {}
+            }
+
+            top(){ return {x:this.x, y:this.y - this.h/2}}
+            right(){ return {x:this.x + this.w/2, y:this.y}}
+            bottom(){ return {x:this.x, y:this.y + this.h/2}}
+            left(){ return {x:this.x - this.w/2, y:this.y}}
+
+            render()
+            {
+                ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+                ctx.restore();
+              
+            }
+
+            fx(_def=.85)
+            {
+                this.vx *= _def;
+                return this;
+            }
+            fy(_def=.97)
+            {
+                this.vy *= _def;
+                return this;
+            }
+            g(_def=1)
+            {
+                this.vy += _def;
+                return this;
+            }
+            move()
+            {
+                this.x += this.vx;
+                this.y += this.vy;
+                return this;
+            }
+
+            collidePoint(_obj)
+            {
+                if(
+                   this.bottom().y > _obj.y && 
+                    this.top().y <_obj.y && 
+                    this.right().x > _obj.x && 
+                    this.left().x < _obj.x
+                )
+                {
+                    return true;
+                }
+                return false;
+            }
+            collideBox(_obj)
+            {
+                if(
+                    this.top().y <_obj.bottom().y && 
+                    this.bottom().y > _obj.top().y && 
+                    this.right().x > _obj.left().x && 
+                    this.left().x < _obj.right().x
+                )
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        var c = document.querySelector(`canvas`);
+        var ctx = c.getContext(`2d`);
+        var timer = setInterval(main, 1000/60);
+
+       
+        var player = new GameObject();
+        player.color = `yellow`;
+        
+        var enemy = new GameObject();
+        enemy.color = `purple`;
+        enemy.x = c.width - 100;
+
+        var message = `3`;
+
+        setTimeout(()=>{
+            message = `2`;
+            setTimeout(()=>{
+                message = `1`;
+                setTimeout(()=>{
+                    message = `go`
+                    enemy.vx = -2;
+                    setTimeout(()=>{
+                        message = `go`
+                        enemy.vx = -2;
+                    }, 1000)
+                }, 1000)
+            }, 1000)
+
+        }, 1000);
+
+        var ground = new GameObject();
+        ground.color = `green`;
+        ground.y = c.height-ground.h/2;
+        ground.w = c.width;
+        
+         var renderList = [ground, enemy, player];
+
+        function main()
+        {
+            ctx.clearRect(0,0,c.width,c.height);
+            
+
+            if(keys[`w`] && player.canJump)
+            {
+              player.canJump = false;
+              player.vy = -30;
+             
+            }
+            if(keys[`a`])
+            {
+                player.vx += -1;
+            }
+            if(keys[`d`])
+            {
+                player.vx += 1;
+            }
+
+            
+            player.fx().fy().g().move();
+            enemy.fy().g().move();
+            var dx = player.x - enemy.x;
+          
+            if(player.lives)
+            {
+                if(Math.abs(dx) <200 )
+                {
+                    message = `Jump`
+                }
+                while(ground.collidePoint(player.bottom()))
+                {
+                    player.y--;
+                    player.vy = 0;
+                    player.canJump = true;
+                }
+                if(enemy.collideBox(player))
+                {
+                    player.lives = false;
+                    player.vy = -25;
+                    message = `Ouch You died`
+                }
+                if(enemy.x < player.x - player.w - enemy.w)
+                {
+                    message = `You survived`
+                }
+            }
+            while(ground.collidePoint(enemy.bottom()))
+            {
+                enemy.y--;
+                enemy.vy = 0;
+                enemy.canJump = true;
+            }
+
+            
+
+            for(let i=0; i<renderList.length; i++)
+            {
+              // renderList[i].render();
+            }
+            ctx.save()
+            ctx.fillStyle = `#fff`;
+            ctx.font = `bold 60px Arial`
+            ctx.translate(c.width/2, c.height/2-200)
+            ctx.textAlign = `center`
+            ctx.fillText(message, 0,0)
+            ctx.restore()
+           
+        }
+
+        var keys={}
+        document.addEventListener(`keydown`, (e)=>{
+            keys[String.fromCharCode(e.keyCode).toLowerCase()] = true;
+            console.log(keys)
+        })
+        document.addEventListener(`keyup`, (e)=>{
+            keys[String.fromCharCode(e.keyCode).toLowerCase()] = false;
+        })
+
+       
+    </script>
+</body>
+</html>

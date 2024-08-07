@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J Query</title>
+</head>
+<body>
+    <p data-age="20">Andy Ho</p>
+    <p data-age="20">Andy Ho</p>
+    <p data-age="20">Andy Ho</p>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+
+        var p = document.querySelectorAll('p')//only gets the first one so will only change the first one
+        var date1 = new Date();
+        var start = date1.getTime();
+        var end;
+
+        var time1 = 0;
+        var timer = setTimeout(timeout, 1000);
+        function timeout() {
+            time1++;
+            p[0].innerHTML = time1;
+            timer = setTimeout(timeout, 1000);
+        }//recursive function
+       // var timer = setTimeout(getNewTime, 5000);  
+
+
+       var timer2 = 0;
+       var timer2 = setInterval(timeout2, 1000);
+         function timeout2() {
+              timer2++;
+              p[1].innerHTML = timer2;
+         }//this is a better way to do the recursive function
+
+
+        var timer3 = setInterval(getNewTime, 1000);
+        function getNewTime() {
+            let date2 = new Date();
+            end = date2.getTime();
+            p[2].innerHTML = Math.floor(Number(end - start) / 1000);
+        }
+
+
+       /*
+        function getNewTime() {
+            let date2 = new Date();
+            end = date2.getTime();
+            p.innerHTML = end - start;
+        }//This is not accurate and will not give you a accurate number
+        */
+        var days = [`sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`]//this is an array of strings that will be used to get the day of the week in letters instead of numbers
+       
+        /*
+        p.innerHTML = date.getTime();//this will get the time in milliseconds since 1970. will change every time the page is refreshed
+        p.innerHTML = days[date.getDay()]
+        p.innerHTML = date.getTime();
+        P.innerHTML = date.getDate();
+        p.innerHTML = date.getMonth();
+        p.innerHTML = date.getFullYear();
+        p.innerHTML = date.getHours();
+        p.innerHTML = date.getMinutes();
+        p.innerHTML = date.getSeconds();
+        p.innerHTML = date.getMilliseconds();
+        */
+
+        //JQUERY STUFF  
+        /*
+        $(`p`).css(`color`, `red`);
+
+        $(`p`).click(function(e) {
+            $(this).css(`font-size`, `32px`).animate({marginLeft: '250px'}, 2000, function() {
+                $(this).animate({marginTop: '250px'}, 2000);
+            });
+        });//a bunch of callback functions that are chained together/This is messy but common in jquery and javascript
+        */
+        //$(`p).style.color = `red`; this is wrong because it is not a jquery object so `p` is not getting selected and the color is not getting changed. can use vanilla css with this
+    </script>
+
+    <!-- OTHER STUFF    
+    <script>
+        var p = document.querySelector('p');
+        p.addEventListener('click', (e) => {
+            window.location = `https://www.google.com?age=${p.dataset.age}`;
+        });
+        
+        (function bob() {
+            alert('hi');
+        })();//this function calls itself
+        
+        function joe() {//this function is called a closure which is a function that returns a function
+            var x = 0;
+
+            return function() {
+                x++;
+                return x;
+            }
+        }
+        var myFunc = joe();
+        console.log(myFunc());
+        console.log(myFunc());
+        console.log(myFunc());//This is weird how it works
+    </script>
+    -->
+</body>
+</html>
