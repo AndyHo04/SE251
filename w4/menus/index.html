@@ -87,6 +87,18 @@
             });
         })
 
+        newGame.addEventListener(`click`, (e)=>{
+            window.location = `lobby.html?load=${e.target.dataset.load}`;
+        });
+
+        continueGame.addEventListener(`click`, (e)=>{
+            window.location = `lobby.html?load=${e.target.dataset.load}`;
+        });
+
+        highScoresButton.addEventListener(`click`, (e)=>{
+            window.location.href = `hs.html?load=${e.target.dataset.load}`;
+        });
+
     </script>
 </body>
 </html>
