@@ -38,8 +38,10 @@
 
         message += `<div id="high-scores">`;
 
-        for(let i = 0; i < highScoreList.length; i++){
-            message += `<p>${highScoreList[i].name} ${highScoreList[i].score}</p>`;
+        for (let i = 0; i < highScoreList.length; i++) {
+             for (let property in highScoreList[i]) {
+                 message += `<p>${property}: ${highScoreList[i][property]}</p>`;
+            }
         }
 
         message += `</div>`;
