@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>My Page</h2>
+    <button>Get Stuff</button>
+    <script>
+
+        var button = document.querySelector(`button`);
+
+        button.addEventListener(`click`, async(e) => {
+            /*fetch(`https://swapi.dev/api/people/1`)
+            .then((data) => {return data.json()})
+            .then((data) => {console.log(data)})*/
+
+            var data = await fetch(`http://localhost:3000/people`)//has to use with asycn
+            var json = await data.json()
+            var message = ``
+            for(let i = 0; i < json.length; i++)
+            {
+                message += `<div>`;
+
+                for(key in json[i])
+                {
+                    message += `${json[i][key]} `
+                }
+
+                message += `</div>`
+
+            }
+            document.querySelector(`body`).innerHTML += message
+       })
+        
+    </script>
+</body>
+</html>

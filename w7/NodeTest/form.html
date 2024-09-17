@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="First Name">
+    <input type="text" placeholder="Last Name">
+    <button>Submit</button>
+
+    <script>
+        var inputs = document.querySelectorAll(`input`);
+        var button = document.querySelector(`button`);
+
+        button.addEventListener(`click`, async(e) => {
+            var person = {f:inputs[0].value, l:inputs[1].value}
+            
+            let data = await fetch(`http://localhost:3000/form`, {
+                method: `POST`,
+                body: JSON.stringify(person),
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                }
+            })
+        })
+        /*
+        const myHeaders = new Headers();
+        myHeaders.append(`Content-Type`, `application/json`);
+        console.log("Starting fetch");
+        let response = await fetch(`http://localhost:3000/people`, {
+           
+            })
+        })
+        */
+    </script>
+</body>
+</html>

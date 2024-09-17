@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var peeps = [
+            {f: `John`, l: `Doe`},
+            {f: `Jane`, l: `McCarthy`},
+            {f: `Jim`, l: `Black`},
+    ]
+    var age = 21;
+    var drunk; 
+    if(age >= 21)
+    {
+        drunk = true;
+    }
+    else
+    {
+        drunk = false;
+    }
+
+    var drunk = (age >= 21) ? true : false; //ternary operator - shorthand for if else statement
+    //var age = (drunk) ? 21 : 18; //if drunk is true, age is 21, if drunk is false, age is 18
+    var sorted = peeps.sort((a,b) => (a.l>b.l) ? 1 : -1)
+    //peeps.push({f: `Jack`, l: `White`}) - adds to the end of the array
+    //peeps.unshift({f: `Jack`, l: `White`}) - adds to the beginning of the array
+    //peeps.pop() - removes the last element of the array
+    //peeps.shift() - removes the first element of the array
+    //peeps.splice(1, 1) - removes the element at index 1
+    //peeps.splice(1, 0, {f: `Jack`, l: `White`}) - adds Jack White at index 1
+    //peeps.splice(1, 1, {f: `Jack`, l: `White`}) - replaces the element at index 1 with Jack White
+    console.log(sorted)
+    </script>
+</body>
+</html>
